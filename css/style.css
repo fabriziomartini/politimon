@@ -1,0 +1,350 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --verde: #009246;
+    --bianco: #ffffff;
+    --rosso: #ce2b37;
+    --blu-scuro: #1a1a2e;
+    --oro: #ffd700;
+    --card-bg: #16213e;
+    --border: #2a2a4a;
+}
+
+body {
+    background: var(--blu-scuro);
+    color: white;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 20px 0 60px;
+}
+
+#app {
+    width: 100%;
+    max-width: 960px;
+    padding: 20px;
+}
+
+/* ---- TITLE ---- */
+.title {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.title h1 {
+    font-size: 5rem;
+    font-weight: 900;
+    letter-spacing: -3px;
+    background: linear-gradient(135deg, var(--verde) 0%, var(--bianco) 50%, var(--rosso) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+}
+
+.title .subtitle {
+    font-size: 1.15rem;
+    color: #aaa;
+    margin-bottom: 8px;
+}
+
+.title .disclaimer {
+    font-size: 0.78rem;
+    color: #555;
+    margin-bottom: 48px;
+    font-style: italic;
+}
+
+/* ---- BUTTONS ---- */
+.btn {
+    background: var(--verde);
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.18s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,146,70,0.4);
+}
+
+.btn:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.btn.secondary {
+    background: transparent;
+    border: 2px solid var(--border);
+    color: #888;
+}
+
+.btn.secondary:hover {
+    border-color: #555;
+    color: #ccc;
+    box-shadow: none;
+    transform: none;
+}
+
+.btn.big {
+    font-size: 1.3rem;
+    padding: 18px 48px;
+}
+
+/* ---- SECTION HEADER ---- */
+.section-title {
+    text-align: center;
+    font-size: 1.65rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+}
+
+.section-sub {
+    text-align: center;
+    color: #888;
+    margin-bottom: 28px;
+    font-size: 0.92rem;
+    line-height: 1.5;
+}
+
+/* ---- PARTY CARDS ---- */
+.parties-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.party-card {
+    background: var(--card-bg);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.18s;
+    user-select: none;
+}
+
+.party-card:hover { border-color: #4a4a7a; transform: translateY(-3px); }
+.party-card.selected { border-color: var(--oro); background: #1e1b2e; }
+
+.party-emoji { font-size: 2.6rem; display: block; margin-bottom: 10px; }
+.party-name { font-weight: 800; font-size: 1rem; margin-bottom: 4px; }
+.party-leader { font-size: 0.78rem; color: #888; margin-bottom: 6px; }
+.party-seats { font-size: 0.85rem; color: var(--oro); font-weight: 700; }
+.party-desc { font-size: 0.72rem; color: #666; margin-top: 6px; line-height: 1.3; }
+
+/* ---- COALITION BAR ---- */
+.coalition-bar {
+    background: var(--card-bg);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 22px;
+}
+
+.coalition-bar h3 { margin-bottom: 12px; font-size: 0.95rem; color: #ccc; }
+
+.seats-progress {
+    background: #2a2a4a;
+    border-radius: 6px;
+    height: 26px;
+    overflow: visible;
+    margin-bottom: 8px;
+    position: relative;
+}
+
+.seats-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--verde), #00c47a);
+    border-radius: 6px;
+    transition: width 0.5s cubic-bezier(.4,0,.2,1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.majority-line {
+    position: absolute;
+    left: 50%;
+    top: -4px;
+    bottom: -4px;
+    width: 3px;
+    background: var(--oro);
+    border-radius: 2px;
+}
+
+.majority-line::after {
+    content: '50%';
+    position: absolute;
+    top: -20px;
+    left: 4px;
+    font-size: 0.7rem;
+    color: var(--oro);
+    white-space: nowrap;
+    font-weight: 700;
+}
+
+.seats-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    color: #888;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+/* ---- POLITICIAN CARDS ---- */
+.politicians-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.politico-card {
+    background: var(--card-bg);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 14px;
+    cursor: pointer;
+    transition: all 0.18s;
+    position: relative;
+    user-select: none;
+}
+
+.politico-card:hover:not(.locked) { border-color: #4a6eaa; transform: translateY(-2px); }
+.politico-card.selected { border-color: var(--verde); background: #0d2b1a; }
+.politico-card.locked { opacity: 0.45; cursor: default; }
+.politico-card.own { border-color: #9b7fd4; background: #1a1030; cursor: default; }
+
+.selected-check {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--verde);
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.politico-card.selected .selected-check,
+.politico-card.own .selected-check { display: flex; }
+.politico-card.own .selected-check { background: #9b7fd4; }
+
+.politico-avatar { font-size: 2.8rem; text-align: center; display: block; margin-bottom: 8px; }
+.politico-name { font-weight: 700; font-size: 0.92rem; text-align: center; margin-bottom: 3px; }
+.politico-partito { font-size: 0.72rem; color: #888; text-align: center; margin-bottom: 10px; }
+
+.stat-bar { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; font-size: 0.73rem; }
+.stat-label { width: 58px; color: #999; flex-shrink: 0; }
+.stat-track { flex: 1; height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
+.stat-fill { height: 100%; border-radius: 3px; transition: width 0.3s; }
+.stat-fill.carisma { background: #4a90e2; }
+.stat-fill.fedelta { background: var(--verde); }
+.stat-fill.scandali { background: var(--rosso); }
+.stat-fill.potere { background: var(--oro); }
+.stat-val { width: 14px; text-align: right; color: #ccc; font-weight: 700; }
+
+.quote-tag {
+    font-size: 0.68rem;
+    color: #555;
+    font-style: italic;
+    text-align: center;
+    margin-top: 8px;
+    line-height: 1.35;
+}
+
+/* ---- RESULT ---- */
+.result-screen { text-align: center; padding: 50px 20px; }
+
+.result-big {
+    font-size: 6rem;
+    display: block;
+    margin-bottom: 20px;
+    animation: pop 0.4s cubic-bezier(.17,.67,.35,1.5);
+}
+
+@keyframes pop {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.result-title { font-size: 2.4rem; font-weight: 900; margin-bottom: 12px; }
+.result-desc { color: #aaa; font-size: 1rem; max-width: 520px; margin: 0 auto 32px; line-height: 1.65; }
+
+.result-stats {
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 32px;
+    background: var(--card-bg);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 32px;
+    margin-bottom: 32px;
+    text-align: left;
+    font-size: 0.92rem;
+}
+
+/* ---- UTILITY ---- */
+.flex-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+.subheader {
+    font-size: 0.85rem;
+    color: #777;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 20px 0 10px;
+}
+
+.badge {
+    display: inline-block;
+    background: var(--border);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 0.8rem;
+    color: #bbb;
+    margin: 3px;
+}
+
+.slot-counter {
+    text-align: center;
+    font-size: 0.88rem;
+    color: #888;
+    margin-bottom: 14px;
+}
+.slot-counter strong { color: var(--oro); }
+
+.selected-info {
+    text-align: center;
+    font-size: 0.88rem;
+    color: #888;
+    margin-bottom: 20px;
+}
+.selected-info strong { color: white; }
+
+@media (max-width: 600px) {
+    .title h1 { font-size: 3.2rem; }
+    .parties-grid { grid-template-columns: repeat(2, 1fr); }
+    .politicians-grid { grid-template-columns: repeat(2, 1fr); }
+}
